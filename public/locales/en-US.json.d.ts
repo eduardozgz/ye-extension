@@ -69,7 +69,7 @@ interface EnUS {
 				};
 				fallbackQualityStrategy: {
 					select: {
-						label: "Fallback quality strategy";
+						label: "Quality fallback strategy";
 						options: { higher: "Higher"; lower: "Lower" };
 						title: "The strategy to use when the selected quality is not available";
 					};
@@ -321,6 +321,7 @@ interface EnUS {
 				};
 				title: "Scroll wheel volume control settings";
 			};
+			settingSearch: { placeholder: "Search for a setting" };
 			videoHistory: {
 				enable: {
 					label: "Track watched videos";

@@ -8,6 +8,7 @@ import "@/assets/styles/tailwind.css";
 import "@/components/Settings/Settings.css";
 import { useNotifications } from "@/hooks";
 import Link from "@/src/components/Link";
+import SettingSearch from "@/src/components/Settings/components/SettingSearch";
 import { deepDarkPreset } from "@/src/deepDarkPresets";
 import { availableLocales, type i18nInstanceType, i18nService, localeDirection, localePercentages } from "@/src/i18n";
 import { buttonNames, youtubePlaybackSpeedButtonsRates, youtubePlayerSpeedRates } from "@/src/types";
@@ -143,7 +144,6 @@ export default function Settings() {
 	const [i18nInstance, setI18nInstance] = useState<Nullable<i18nInstanceType>>(null);
 	const settingsImportRef = useRef<HTMLInputElement>(null);
 	const { addNotification, notifications, removeNotification } = useNotifications();
-
 	useEffect(() => {
 		if (settings && settings["language"]) {
 			void (async () => {
@@ -507,11 +507,14 @@ export default function Settings() {
 	return (
 		<SettingsContext.Provider value={{ direction: localeDirection[settings.language], i18nInstance, settings }}>
 			<div className="h-fit w-fit bg-[#f5f5f5] text-black dark:multi-['bg-[#181a1b];text-white']" dir={localeDirection[settings.language]}>
-				<h1 className="flex content-center items-center gap-3 text-xl font-bold sm:text-2xl md:text-3xl" dir={"ltr"}>
-					<img className="h-16 w-16" src="/icons/icon_128.png" />
-					YouTube Enhancer
-					<small className="light text-xs sm:text-sm md:text-base">v{chrome.runtime.getManifest().version}</small>
-				</h1>
+				<div className="sticky left-0 top-0 z-10 flex flex-col justify-between gap-1 bg-[#f5f5f5] dark:bg-[#181a1b]">
+					<h1 className="flex content-center items-center gap-3 text-xl font-bold sm:text-2xl md:text-3xl" dir={"ltr"}>
+						<img className="h-16 w-16" src="/icons/icon_128.png" />
+						YouTube Enhancer
+						<small className="light text-xs sm:text-sm md:text-base">v{chrome.runtime.getManifest().version}</small>
+					</h1>
+					<SettingSearch i18nInstance={i18nInstance} />
+				</div>
 				<Suspense fallback={<Loader />}>
 					<LanguageOptions selectedLanguage={settings["language"]} setValueOption={setValueOption} t={i18nInstance.t} />
 				</Suspense>
